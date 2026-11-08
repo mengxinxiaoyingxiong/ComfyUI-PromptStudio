@@ -16,3 +16,6 @@ user/
 .idea/
 .DS_Store
 Thumbs.db
+
+# 发布构建产物
+dist/

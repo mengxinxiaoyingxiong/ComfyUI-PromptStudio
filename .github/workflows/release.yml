@@ -20,11 +20,13 @@ jobs:
         run: |
           set -euo pipefail
           NAME="ComfyUI-PromptStudio-${GITHUB_REF_NAME#v}"
-          mkdir -p "dist/${NAME}"
+          STAGE="/tmp/${NAME}"
+          mkdir -p "${STAGE}"
           rsync -a \
             --exclude='.git' \
             --exclude='.github' \
             --exclude='docs' \
+            --exclude='dist' \
             --exclude='__pycache__' \
             --exclude='*.pyc' \
             --exclude='data/tags' \
@@ -32,10 +34,10 @@ jobs:
             --exclude='.gitignore' \
             --exclude='.comfyignore' \
             --exclude='.gitattributes' \
-            ./ "dist/${NAME}/"
-          cd dist
-          zip -r "${NAME}.zip" "${NAME}"
-          ls -lh "${NAME}.zip"
+            ./ "${STAGE}/"
+          mkdir -p dist
+          (cd /tmp && zip -r "${GITHUB_WORKSPACE}/dist/${NAME}.zip" "${NAME}")
+          ls -lh "dist/${NAME}.zip"
 
       - name: Create GitHub release
         uses: softprops/action-gh-release@v2
@@ -48,4 +50,5 @@ jobs:
             **Manager**：搜索 `Prompt Studio Editor` 安装。
             **说明**：<https://github.com/mengxinxiaoyingxiong/ComfyUI-PromptStudio#readme>
           files: dist/*.zip
+          overwrite_files: true
           generate_release_notes: true
