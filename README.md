@@ -35,6 +35,21 @@ git clone https://github.com/mengxinxiaoyingxiong/ComfyUI-PromptStudio.git
 
 重启 ComfyUI（刷新浏览器不够，后端路由要重新注册）。启动日志出现 `[PromptStudio] 路由已注册 /prompt_studio/*` 即成功。
 
+### 直接下载 ZIP
+
+不想用 Manager / git 的话，从 Releases 下载：
+
+- 最新版：<https://github.com/mengxinxiaoyingxiong/ComfyUI-PromptStudio/releases/latest>
+- 文件名：`ComfyUI-PromptStudio-1.0.0.zip`
+
+解压后把 `ComfyUI-PromptStudio-1.0.0` 文件夹放进 `ComfyUI/custom_nodes/`，重启 ComfyUI。
+
+Registry 的安装包（Manager 同款，文件在根目录、没有外层文件夹）：
+
+`https://cdn.comfy.org/mengxinxiaoyingxiong/prompt-studio-editor/1.0.0/node.zip`
+
+> 这是 ComfyUI 插件，需要 ComfyUI 本体，不能直接在 WebUI 或其他软件里运行。
+
 ### 词库
 
 插件自带**一键下载**：面板右上角 ⚙ → 「下载词库」，从 [a1111-sd-webui-tagcomplete](https://github.com/DominikDoom/a1111-sd-webui-tagcomplete)（MIT）拉取 `danbooru.csv` / `e621.csv` 到 `data/tags/`。两个文件并行下载，约 6MB；网络慢时可能要 1–2 分钟，失败可直接重试。

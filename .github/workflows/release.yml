@@ -1,0 +1,51 @@
+name: Build release zip
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Build and attach installable zip
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Build zip
+        run: |
+          set -euo pipefail
+          NAME="ComfyUI-PromptStudio-${GITHUB_REF_NAME#v}"
+          mkdir -p "dist/${NAME}"
+          rsync -a \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='docs' \
+            --exclude='__pycache__' \
+            --exclude='*.pyc' \
+            --exclude='data/tags' \
+            --exclude='data/tags_config.json' \
+            --exclude='.gitignore' \
+            --exclude='.comfyignore' \
+            --exclude='.gitattributes' \
+            ./ "dist/${NAME}/"
+          cd dist
+          zip -r "${NAME}.zip" "${NAME}"
+          ls -lh "${NAME}.zip"
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: "Prompt Studio ${{ github.ref_name }}"
+          body: |
+            ComfyUI Prompt Studio，手动安装包。
+
+            **安装**：解压后把 `ComfyUI-PromptStudio-*` 文件夹放进 `ComfyUI/custom_nodes/`，重启 ComfyUI。
+            **Manager**：搜索 `Prompt Studio Editor` 安装。
+            **说明**：<https://github.com/mengxinxiaoyingxiong/ComfyUI-PromptStudio#readme>
+          files: dist/*.zip
+          generate_release_notes: true
