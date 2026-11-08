@@ -1,0 +1,6 @@
+# 这些文件保留在 git 里，但不打进 Registry 安装包
+docs/
+.github/
+*.psd
+.vscode/
+tests/

@@ -1,0 +1,27 @@
+[project]
+name = "prompt-studio-editor"
+version = "1.0.0"
+description = "WebUI-style prompt editor for ComfyUI: Danbooru/e621 tag search, colored tag groups, draggable chips and presets. Edit only - never writes into nodes."
+license = { file = "LICENSE" }
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = []
+keywords = ["comfyui", "prompt", "tags", "danbooru", "e621", "prompt-editor", "wildcards"]
+classifiers = [
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Topic :: Multimedia :: Graphics",
+]
+
+[project.urls]
+Repository = "https://github.com/mengxinxiaoyingxiong/ComfyUI-PromptStudio"
+"Bug Tracker" = "https://github.com/mengxinxiaoyingxiong/ComfyUI-PromptStudio/issues"
+Documentation = "https://github.com/mengxinxiaoyingxiong/ComfyUI-PromptStudio#readme"
+
+[tool.comfy]
+PublisherId = "mengxinxiaoyingxiong"
+DisplayName = "Prompt Studio Editor"
+Icon = "https://raw.githubusercontent.com/mengxinxiaoyingxiong/ComfyUI-PromptStudio/main/docs/icon.png"
+Banner = "https://raw.githubusercontent.com/mengxinxiaoyingxiong/ComfyUI-PromptStudio/main/docs/banner.png"
+# ComfyUI 后端版本；面板只用到长期稳定的前端扩展 API
+requires-comfyui = ">=0.3.0"
