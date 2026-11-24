@@ -40,13 +40,13 @@ git clone https://github.com/mengxinxiaoyingxiong/ComfyUI-PromptStudio.git
 不想用 Manager / git 的话，从 Releases 下载：
 
 - 最新版：<https://github.com/mengxinxiaoyingxiong/ComfyUI-PromptStudio/releases/latest>
-- 文件名：`ComfyUI-PromptStudio-1.0.0.zip`
+- 文件名：`ComfyUI-PromptStudio-1.0.1.zip`
 
-解压后把 `ComfyUI-PromptStudio-1.0.0` 文件夹放进 `ComfyUI/custom_nodes/`，重启 ComfyUI。
+解压后把 `ComfyUI-PromptStudio-1.0.1` 文件夹放进 `ComfyUI/custom_nodes/`，重启 ComfyUI。
 
 Registry 的安装包（Manager 同款，文件在根目录、没有外层文件夹）：
 
-`https://cdn.comfy.org/mengxinxiaoyingxiong/prompt-studio-editor/1.0.0/node.zip`
+`https://cdn.comfy.org/mengxinxiaoyingxiong/prompt-studio-editor/1.0.1/node.zip`
 
 > 这是 ComfyUI 插件，需要 ComfyUI 本体，不能直接在 WebUI 或其他软件里运行。
 
@@ -76,7 +76,7 @@ Registry 的安装包（Manager 同款，文件在根目录、没有外层文件
 | 分类过滤 | 通用 / 画师 / 作品 / 角色 / meta（e621 另有物种），可多选 |
 | 预选区 | 每行左侧复选框把标签放进「预选」，再一批「加入正 / 加入反」 |
 | 提示词整合（下方） | 收藏列表 + 各分组；单击加正向、右键加反向、拖进提示词框、点 ☆ 收藏 |
-| 预设提示词（右下） | 新建 / 保存当前 / 刷新 / 应用勾选 / 导出 / 导入；点预设名应用到正向，「正 / 反」分别应用，悬停出现 ✎ 编辑、⧉ 复制、🗑 删除 |
+| 预设提示词（右下） | 新建 / 保存当前 / 刷新 / 应用勾选（正向+反向一起应用）/ 导出 / 导入；点预设名应用到正向，「正 / 反」分别应用，悬停出现 ✎ 编辑、⧉ 复制、🗑 删除 |
 
 快捷键：`Esc` 关闭（先关子弹窗）、`Ctrl+Enter` 复制全部、`Ctrl+↑/↓` 调权重、`Ctrl+Shift+P` 开关面板。
 
@@ -198,6 +198,11 @@ Manager 验证：重启 ComfyUI → Custom Nodes Manager → 搜索 `Prompt Stud
 - 地址栏加 `?ps=1` 打开 ComfyUI 时会自动弹出面板。
 - 控制台 `promptStudio.open()` / `promptStudio.close()` / `promptStudio.state`。
 - `Ctrl+Shift+P` 全局开关面板。
+
+## 更新记录
+
+- **1.0.1**：修复「应用勾选」只应用正向、反向提示词不生效的问题；现在会同时应用每个勾选预设的正向与反向内容，并统计段数。
+- **1.0.0**：首个版本。
 
 ## 致谢与许可
 

@@ -14,7 +14,7 @@
 import { app } from "../../../scripts/app.js";
 import { api } from "../../../scripts/api.js";
 
-const VERSION = "1.0.0";
+const VERSION = "1.0.1";
 const STORE_KEY = "PromptStudio.ui.v1";
 const API = "/prompt_studio";
 
@@ -1120,11 +1120,12 @@ async function persistPresets() {
   return false;
 }
 
-function applyPreset(preset, kind) {
+function applyPreset(preset, kind, opts) {
+  const silent = !!(opts && opts.silent);
   const tplRaw = ((kind === "neg" ? preset.negative : preset.prompt) || "").trim();
   if (!tplRaw) {
-    toast("该预设没有" + (kind === "neg" ? "反向" : "正向") + "内容");
-    return;
+    if (!silent) toast("该预设没有" + (kind === "neg" ? "反向" : "正向") + "内容");
+    return false;
   }
   const cur = kind === "neg" ? state.neg : state.pos;
   let out;
@@ -1135,7 +1136,8 @@ function applyPreset(preset, kind) {
   }
   out = out.replace(/,\s*,+/g, ", ").replace(/^\s*,\s*/, "").trim();
   setPrompt(kind, out);
-  toast("已应用预设：" + preset.name + " → " + (kind === "pos" ? "正向" : "反向"));
+  if (!silent) toast("已应用预设：" + preset.name + " → " + (kind === "pos" ? "正向" : "反向"));
+  return true;
 }
 
 function renderPresets() {
@@ -1658,15 +1660,20 @@ function buildUI() {
   const refreshBtn = h("b", { class: "ps-btn ps-sm", title: "从后端重新读取" }, "刷新");
   refreshBtn.addEventListener("click", loadPresets);
 
-  const applySelBtn = h("b", { class: "ps-btn ps-sm", title: "把勾选的预设依次应用到正向" }, "应用勾选");
+  const applySelBtn = h("b", { class: "ps-btn ps-sm", title: "把勾选预设的正向与反向提示词都应用" }, "应用勾选");
   applySelBtn.addEventListener("click", () => {
     const picked = state.presets.filter((p) => state.presetChecked.has(p.id));
     if (!picked.length) {
       toast("先勾选预设");
       return;
     }
-    picked.forEach((p) => applyPreset(p, "pos"));
-    toast(`已应用 ${picked.length} 个预设`);
+    let posCount = 0;
+    let negCount = 0;
+    for (const p of picked) {
+      if ((p.prompt || "").trim() && applyPreset(p, "pos", { silent: true })) posCount++;
+      if ((p.negative || "").trim() && applyPreset(p, "neg", { silent: true })) negCount++;
+    }
+    toast(`已应用 ${picked.length} 个预设：正向 ${posCount} 段 / 反向 ${negCount} 段`);
   });
 
   const presetFoot = h("div", { class: "ps-preset-foot" }, newBtn, saveCurBtn, refreshBtn, applySelBtn);

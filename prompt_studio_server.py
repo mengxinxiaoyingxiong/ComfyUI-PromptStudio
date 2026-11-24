@@ -39,7 +39,7 @@ DATA_DIR = os.path.join(PLUGIN_DIR, "data")
 WEB_DIR = os.path.join(PLUGIN_DIR, "web")
 ROUTE_PREFIX = "/prompt_studio"
 
-VERSION = "1.0.0"
+VERSION = "1.0.1"
 
 CSV_NAMES = {
     "danbooru": ["danbooru.csv"],

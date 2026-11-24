@@ -1,6 +1,6 @@
 [project]
 name = "prompt-studio-editor"
-version = "1.0.0"
+version = "1.0.1"
 description = "WebUI-style prompt editor for ComfyUI: Danbooru/e621 tag search, colored tag groups, draggable chips and presets. Edit only - never writes into nodes."
 license = { file = "LICENSE" }
 readme = "README.md"
